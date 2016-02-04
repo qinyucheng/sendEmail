@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Upload Form</title>
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript">
+        function submitForm() {
+            console.log("submit event");
+            var content = { Name: document.fileinfo.name.value, Email: document.fileinfo.email.value, Message: document.fileinfo.message.value };
+            
+            
+            $.ajax({
+
+                url: "http://localhost:19884/api/sendEmail",
+                type: "post",
+                
+                data: content,
+               
+            }).success(function (data) {
+                console.log(".net Output:");
+                console.log(data);
+                alert(data);
+            });
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
+        <label>Select a file:</label><br>
+        <input type="text" name="name" value="aa"><br>
+        <input type="text" name="email" value="qinyucheng711@gmail.com"><br>
+        <input type="text" name="message" value="cc"><br>
+        <input type="submit" value="Upload">
+    </form>
+    <div id="output"></div>
+</body>
+</html>

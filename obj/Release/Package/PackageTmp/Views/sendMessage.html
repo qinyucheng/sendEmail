@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Upload Form</title>
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript">
+        function submitForm() {
+            console.log("submit event");
+            var fd = new FormData(document.getElementById("fileinfo"));   //file data
+            fd.append("label", "WEBUPLOAD");
+            $.ajax({
+               
+                url: "http://localhost:19884/api/sendEmail",
+                type: "post",
+                data: fd,
+                enctype: 'multipart/form-data',
+                processData: false,  //  not to process the data
+                contentType: false   //  not to set contentType
+            }).success(function (data) {
+                console.log(".net Output:");
+                console.log(data);
+                alert("upload successful")
+            });
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <form method="post" id="fileinfo" name="fileinfo" onsubmit="return submitForm();">
+        <label>Select a file:</label><br>
+        <input type="file" name="file"><br>
+        <input type="submit" value="Upload">
+    </form>
+    <div id="output"></div>
+</body>
+</html>
